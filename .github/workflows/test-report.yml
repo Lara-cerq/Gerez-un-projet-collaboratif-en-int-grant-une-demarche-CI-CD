@@ -10,15 +10,12 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  test-frontend:
     runs-on: ubuntu-latest
-
-
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v3.5.1
       with:
         cache: 'npm'
     - name: Build app
