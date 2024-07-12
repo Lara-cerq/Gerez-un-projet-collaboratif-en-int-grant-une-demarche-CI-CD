@@ -18,9 +18,10 @@ jobs:
       uses: actions/setup-node@v3.5.1
       with:
         cache: 'npm'
+        cache-dependency-path: './front/package-lock.json'
     - name: Build app
-      working-directory: ./front
+      working-directory: './front'
       run: npm ci
     - name: Run test
-      working-directory: ./front
+      working-directory: './front'
       run: npm run test-coverage
