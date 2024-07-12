@@ -24,7 +24,4 @@ jobs:
       run: npm ci
     - name: Run test
       working-directory: './front'
-      run: npm run test-coverage
-      env:
-        # https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-        NODE_OPTIONS: '--max-old-space-size=4096'
+      run: npm run test
