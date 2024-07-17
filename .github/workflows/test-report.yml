@@ -24,10 +24,4 @@ jobs:
       run: npm ci
     - name: Run test
       working-directory: './front'
-      run:  |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-          - npm install
-          - npm run test --no-watch --source-map=false --browsers=Chrome
-          - npm run build
+      run: npm run test --no-watch --no-progress --browsers=ChromeHeadlessCI
