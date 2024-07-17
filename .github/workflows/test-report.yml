@@ -26,7 +26,7 @@ jobs:
       - name: Build and run test
         run: |
           npm run build --if-present
-          npm run test --no-watch --no-progress --browsers=ChromeHeadlessCI
+          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
   
   test-backend:
     runs-on: ubuntu-latest
