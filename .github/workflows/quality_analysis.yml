@@ -1,4 +1,4 @@
-name: Build
+name: Analysis quality code with sonarqube
 on:
   push:
     branches:
