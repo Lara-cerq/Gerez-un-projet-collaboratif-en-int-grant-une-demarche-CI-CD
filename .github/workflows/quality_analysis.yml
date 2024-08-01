@@ -48,10 +48,16 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 
-      - name: Install dependencies
-        run: yarn
-      - name: Test and coverage
-        run: yarn jest --coverage
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
+      - name: Build app
+        run: npm ci
+      - name: Install
+        run: npm install
+      - name: Build and run test
+        run: |
+          npm run build --if-present
+          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
