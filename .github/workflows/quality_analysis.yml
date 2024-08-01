@@ -37,7 +37,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
+          -Dsonar.organization=lara-cerq \
+          -Dsonar.sources=src/main \
+          -Dsonar.exclusions=src/main/resources/static/** \
+          -Dsonar.tests=src/test \
+          -Dsonar.javascript.lcov.reportPaths=../front/coverage/bobapp/lcov.info \
+          -Dsonar.java.binaries=target/classes \
+          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+          -Dsonar.sourceEncoding=UTF-8 \
+          -Dsonar.branch.name=main
   frontend:
     name: Code quality analysis front end
     runs-on: ubuntu-latest
@@ -66,4 +76,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           run: |
-            npx sonarqube-scanner -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+            npx sonarqube-scanner 
+            -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
+            -Dsonar.organization=lara-cerq \
+            -Dsonar.sources=src
+            -Dsonar.exclusions=src/polyfills.ts
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=src/**/*.spec.ts,src/test/**,src/**/*Test.java
+            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.branch.name=main
