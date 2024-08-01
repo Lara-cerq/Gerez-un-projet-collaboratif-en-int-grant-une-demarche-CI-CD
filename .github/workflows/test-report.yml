@@ -32,7 +32,6 @@ jobs:
         if: success() || failure()
         with:
           name: Jest code coverage
-          path: ./front/coverage/bobapp
   
   test-backend:
     runs-on: ubuntu-latest
