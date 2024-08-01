@@ -33,27 +33,13 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build project
-        run: |
-          cd back
-          mvn clean install
       - name: Analyze with sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          cd back
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
-          -Dsonar.organization=lara-cerq \
-          -Dsonar.sources=src/main \
-          -Dsonar.exclusions=src/main/resources/static/** \
-          -Dsonar.tests=src/test \
-          -Dsonar.javascript.lcov.reportPaths=../front/coverage/bobapp/lcov.info \
-          -Dsonar.java.binaries=target/classes \
-          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
-          -Dsonar.sourceEncoding=UTF-8 \
-          -Dsonar.branch.name=main
+          mvn -B verify sonar:sonar -f pom.xml
+          
   frontend:
     name: Code quality analysis front end
     runs-on: ubuntu-latest
