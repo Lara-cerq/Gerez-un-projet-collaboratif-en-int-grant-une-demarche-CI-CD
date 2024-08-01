@@ -47,32 +47,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v2
-      - name: Build app
-        run: npm ci
-      - name: Install
-        run: npm install
-      - name: Build and run test
-        run: |
-          npm run build --if-present
-          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+          fetch-depth: 0 
+      - name: Install dependencies
+        run: yarn
+      - name: Test and coverage
+        run: yarn jest --coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
-          projectBaseDir: front # Sets the project to analyze
+          projectBaseDir: front
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          run: |
-            npx sonarqube-scanner 
-            -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
-            -Dsonar.organization=lara-cerq \
-            -Dsonar.sources=src
-            -Dsonar.exclusions=src/polyfills.ts
-            -Dsonar.tests=src
-            -Dsonar.test.inclusions=src/**/*.spec.ts,src/test/**,src/**/*Test.java
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.branch.name=main
