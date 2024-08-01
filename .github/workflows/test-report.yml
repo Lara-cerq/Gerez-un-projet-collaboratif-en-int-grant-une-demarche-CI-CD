@@ -28,7 +28,7 @@ jobs:
         if: success() || failure()
         with:
           name: Jest code coverage
-          path: ./front/coverage/lcov-report
+          path: ./front/coverage/bobapp/lcov.info
   test-backend:
     runs-on: ubuntu-latest
     defaults: 
