@@ -41,5 +41,5 @@ jobs:
         with:
           projectBaseDir: back/
       - name: Build and analyze
-          run: |
-           mvn -B verify sonar:sonar -f pom.xm
+        run: |
+          mvn -B verify sonar:sonar -f pom.xm
