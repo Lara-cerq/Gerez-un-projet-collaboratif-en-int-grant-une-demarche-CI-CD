@@ -42,4 +42,4 @@ jobs:
           projectBaseDir: back/
       - name: Build and analyze
         run: |
-          mvn -B verify sonar:sonar -f pom.xm
+          mvn -B verify sonar:sonar -f pom.xml
