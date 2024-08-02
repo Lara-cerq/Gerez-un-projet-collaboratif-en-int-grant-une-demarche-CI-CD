@@ -41,7 +41,7 @@ jobs:
         with:
           projectBaseDir: back/
       - name: Build and analyze
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
   frontend:
     name: Code quality analysis front end
     runs-on: ubuntu-latest
