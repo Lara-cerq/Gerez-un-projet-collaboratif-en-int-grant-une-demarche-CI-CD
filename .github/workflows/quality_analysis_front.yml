@@ -1,0 +1,37 @@
+name: Analysis quality code with sonarqube
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  frontend:
+    name: Code quality analysis front end
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./front/
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
+      - name: Build app
+        run: npm ci
+      - name: Install
+        run: npm install
+      - name: Build and run test
+        run: |
+          npm run build --if-present
+          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: front/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Build and analyze
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
