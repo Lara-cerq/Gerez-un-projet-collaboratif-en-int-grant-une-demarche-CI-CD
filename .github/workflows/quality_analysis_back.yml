@@ -41,4 +41,5 @@ jobs:
         with:
           projectBaseDir: back/
       - name: Build and analyze
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Lara-cerq_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+          run: |
+           mvn -B verify sonar:sonar -f pom.xm
