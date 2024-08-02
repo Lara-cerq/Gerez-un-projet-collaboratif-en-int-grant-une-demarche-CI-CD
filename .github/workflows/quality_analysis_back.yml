@@ -1,4 +1,4 @@
-name: Analysis quality code with sonarqube
+name: Analysis quality code with sonarqube backend
 on:
   push:
     branches:
