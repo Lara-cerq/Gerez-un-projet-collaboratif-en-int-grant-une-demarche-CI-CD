@@ -125,7 +125,7 @@ jobs:
             file: ./back/Dockerfile
             push: true
             tags: ${{ vars.DOCKERHUB_USERNAME }}/bobapp-back:latest
-          - name: Build and push docker images front end
+        - name: Build and push docker images front end
           uses: docker/build-push-action@v5
           with:
             context: ./front
